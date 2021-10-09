@@ -26,7 +26,7 @@ const DUMMY_PRODUCTS: Product[] = [
 
 const Products: React.FC = () => {
   return (
-    <ul className="m-auto w-full flex justify-center flex-row flex-wrap">
+    <ul className="m-auto w-full flex justify-center flex-row flex-wrap container">
       {DUMMY_PRODUCTS.map((product) => (
         <SingleProduct key={product.id} product={product} />
       ))}

@@ -1,4 +1,4 @@
-import NavLink from "./NavLink";
+import NavLink from "../UI/NavLink";
 
 const Navbar: React.FC = () => {
   return (

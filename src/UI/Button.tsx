@@ -1,34 +1,30 @@
-interface Props {
-  color?: string;
-  border?: string;
-  padding?: string;
-  height?: string;
-  width?: string;
-  radius?: string;
-  children?: React.ReactNode;
-  onClick?: () => void;
-}
+import { FC, ReactNode } from "react";
 
-const Button: React.FC<Props> = ({
-  border,
-  color,
-  height,
-  radius,
-  width,
+type Props = {
+  variant?: string;
+  extraClasses?: string;
+  children?: ReactNode;
+  onClick?: () => void;
+};
+
+const Button: FC<Props> = ({
+  variant = "primary",
+  extraClasses,
   children,
   onClick,
 }) => {
+  let buttonVariant =
+    "bg-primary-default text-alt-default hover:bg-secondary-default";
+
+  if (variant === "secondary") {
+    buttonVariant =
+      "bg-secondary-default text-alt-default hover:bg-primary-default";
+  }
+
+  const styles: string = `py-2 px-4 rounded-lg transition ease-in-out duration-150 ${buttonVariant} ${extraClasses}`;
+
   return (
-    <button
-      onClick={onClick}
-      style={{
-        border,
-        backgroundColor: color,
-        height,
-        width,
-        borderRadius: radius,
-      }}
-    >
+    <button onClick={onClick} className={styles}>
       {children}
     </button>
   );
