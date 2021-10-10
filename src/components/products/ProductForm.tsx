@@ -21,16 +21,14 @@ const ProductForm: React.FC<{
         <Button variant="secondary" onClick={() => props.onDecrease()}>
           -
         </Button>
-        {/* <input
+        <Input
           type="number"
           value={props.quantity}
-          className="py-2 rounded-md text-center"
-          min="1"
-          max="25"
-          step="1"
-          readOnly
-        /> */}
-        <Input type="number" value={props.quantity} min={1} max={10} step={1} />
+          min={1}
+          max={10}
+          step={1}
+          readOnly={true}
+        />
         <Button variant="secondary" onClick={() => props.onIncrease()}>
           +
         </Button>

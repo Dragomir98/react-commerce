@@ -24,8 +24,10 @@ module.exports = {
         alt: {
           default: "#d6d3db",
         },
+        info: "#0e5ae6",
         success: "#218041",
         error: "#912020",
+        pending: "#e6970e",
         hover: {
           card: "",
           link: "#a392be",
