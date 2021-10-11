@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Product from "../../models/Product";
 import Button from "../../UI/Button";
+import { TrashIcon } from "../../UI/Icons";
 
 type Props = {
   product: Product;
@@ -22,7 +23,7 @@ const CartItem: FC<Props> = ({ product, onRemove }) => {
       </div>
       <div>
         <Button variant="primary" onClick={() => onRemove(product.id)}>
-          Remove
+          <TrashIcon />
         </Button>
       </div>
     </div>
