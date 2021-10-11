@@ -1,5 +1,6 @@
+import { FC } from "react";
 import Product from "../../models/Product";
-import SingleProduct from "./SingleProduct";
+import ProductItem from "./ProductItem";
 
 const DUMMY_PRODUCTS: Product[] = [
   {
@@ -10,7 +11,9 @@ const DUMMY_PRODUCTS: Product[] = [
     price: 5.5,
     quantity: 1,
     totalPrice: 5.5,
+    category: "home goods",
     isAvailable: true,
+    toWishlist: false,
   },
   {
     id: "p2",
@@ -20,15 +23,17 @@ const DUMMY_PRODUCTS: Product[] = [
     price: 12.5,
     quantity: 1,
     totalPrice: 12.5,
+    category: "home goods",
     isAvailable: true,
+    toWishlist: false,
   },
 ];
 
-const Products: React.FC = () => {
+const Products: FC = () => {
   return (
     <ul className="m-auto w-full flex justify-center flex-row flex-wrap container">
       {DUMMY_PRODUCTS.map((product) => (
-        <SingleProduct key={product.id} product={product} />
+        <ProductItem key={product.id} product={product} />
       ))}
     </ul>
   );

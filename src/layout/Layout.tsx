@@ -1,11 +1,10 @@
-import Products from "../components/products/Products";
 import Navbar from "./Navbar";
 
-const Layout: React.FC = (props) => {
+const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Navbar />
-      <Products />
+      {children}
     </>
   );
 };
