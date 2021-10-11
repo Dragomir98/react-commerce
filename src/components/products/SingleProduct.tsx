@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import Product from "../../models/Product";
+import CartContext from "../../store/cart-context";
 import Button from "../../UI/Button";
 import Card from "../../UI/Card";
 import ProductForm from "./ProductForm";
 
 const SingleProduct: FC<{ product: Product }> = ({ product }) => {
+  const cartCtx = useContext(CartContext);
   const [quantity, setQuantity] = useState(product.quantity);
 
   const increaseQuantityHandler = () => {
@@ -17,6 +19,18 @@ const SingleProduct: FC<{ product: Product }> = ({ product }) => {
     if (quantity > 0) {
       setQuantity((prevQuantity) => +prevQuantity - 1);
     }
+  };
+
+  const addToCartHandler = (quantity: number) => {
+    cartCtx.addToCart({
+      id: product.id,
+      price: product.price,
+      title: product.title,
+      image: product.image,
+      totalPrice: product.totalPrice,
+      isAvailable: product.isAvailable,
+      quantity,
+    });
   };
 
   return (
@@ -44,11 +58,8 @@ const SingleProduct: FC<{ product: Product }> = ({ product }) => {
           quantity={quantity}
           onIncrease={increaseQuantityHandler}
           onDecrease={decreaseQuantityHandler}
+          onAddtoCart={addToCartHandler}
         />
-        <div className="flex justify-around">
-          <Button extraClasses="flex-grow mr-2">Cart</Button>
-          <Button extraClasses="flex-grow ml-2">Order</Button>
-        </div>
       </Card>
     </li>
   );
