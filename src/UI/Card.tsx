@@ -7,7 +7,9 @@ type Props = {
 
 const Card: FC<Props> = ({ children, extraClasses }) => {
   return (
-    <div className={`p-5 rounded-lg bg-alt-default ${extraClasses}`}>
+    <div
+      className={`p-5 rounded-lg bg-alt-default shadow-inner ${extraClasses}`}
+    >
       {children}
     </div>
   );

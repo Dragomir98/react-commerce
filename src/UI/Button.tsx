@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 
 type Props = {
+  type?: "button" | "submit" | "reset" | undefined;
   variant?: string;
   extraClasses?: string;
   children?: ReactNode;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 const Button: FC<Props> = ({
+  type = "button",
   variant = "primary",
   extraClasses,
   children,
@@ -24,7 +26,7 @@ const Button: FC<Props> = ({
   const styles: string = `py-2 px-4 rounded-lg transition ease-in-out duration-150 ${buttonVariant} ${extraClasses}`;
 
   return (
-    <button onClick={onClick} className={styles}>
+    <button type={type} onClick={onClick} className={styles}>
       {children}
     </button>
   );
