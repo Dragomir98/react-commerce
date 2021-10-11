@@ -1,32 +1,34 @@
-import { FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 
-type Props = {
-  type?: "button" | "submit" | "reset" | undefined;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: string;
   extraClasses?: string;
   children?: ReactNode;
-  onClick?: () => void;
-};
+}
 
-const Button: FC<Props> = ({
-  type = "button",
+const Button: FC<ButtonProps> = ({
   variant = "primary",
   extraClasses,
   children,
-  onClick,
+  ...rest
 }) => {
   let buttonVariant =
-    "bg-primary-default text-alt-default hover:bg-secondary-default";
+    "px-4 py-2 rounded-lg bg-primary-default text-alt-default hover:bg-secondary-default";
 
   if (variant === "secondary") {
+    buttonVariant =
+      "px-4 py-2 rounded-lg bg-secondary-default text-alt-default hover:bg-primary-default";
+  }
+
+  if (variant === "small") {
     buttonVariant =
       "bg-secondary-default text-alt-default hover:bg-primary-default";
   }
 
-  const styles: string = `py-2 px-4 rounded-lg transition ease-in-out duration-150 ${buttonVariant} ${extraClasses}`;
+  const styles: string = `transition ease-in-out duration-150 ${buttonVariant} ${extraClasses}`;
 
   return (
-    <button type={type} onClick={onClick} className={styles}>
+    <button className={styles} {...rest}>
       {children}
     </button>
   );
