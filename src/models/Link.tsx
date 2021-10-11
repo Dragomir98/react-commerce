@@ -1,6 +1,6 @@
-type Link = {
+interface Link {
   href: string;
-  name: string;
-};
+  isExact?: boolean;
+}
 
 export default Link;

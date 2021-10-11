@@ -1,14 +1,23 @@
-import NavLink from "../UI/NavLink";
+import { CartIcon, HomeIcon, ShopIcon, StarIcon } from "../UI/Icons";
+import NavLinkItem from "../UI/NavLinkItem";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="primary-default">
-      <ul className="p-5 list-none bg-primary-default flex flex-row justify-between text-alt-default">
-        <NavLink href="#" name="Home" />
-        <NavLink href="#" name="Shop" />
-        <NavLink href="#" name="Wishlist" />
-        <NavLink href="#" name="Cart" />
-      </ul>
+    <nav className="p-5 bg-primary-default flex flex-row justify-between text-alt-default">
+      <NavLinkItem href="/" isExact={true} hasLabel={true} label="Home">
+        <HomeIcon />
+      </NavLinkItem>
+      <NavLinkItem href="/shop" hasLabel={true} label="Shop">
+        <ShopIcon />
+      </NavLinkItem>
+      <div className="flex flex-row">
+        <NavLinkItem href="/wishlist" extraClasses="mr-2">
+          <StarIcon />
+        </NavLinkItem>
+        <NavLinkItem href="/cart">
+          <CartIcon />
+        </NavLinkItem>
+      </div>
     </nav>
   );
 };
