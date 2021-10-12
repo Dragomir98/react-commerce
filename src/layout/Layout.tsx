@@ -4,7 +4,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main className="container h-full">{children}</main>
     </>
   );
 };
