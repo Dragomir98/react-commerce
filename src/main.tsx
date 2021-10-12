@@ -1,14 +1,15 @@
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import CartProvider from "./store/CartProvider";
 import { HashRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 ReactDOM.render(
-  <HashRouter>
-    <CartProvider>
+  <Provider store={store}>
+    <HashRouter>
       <App />
-    </CartProvider>
-  </HashRouter>,
+    </HashRouter>
+  </Provider>,
   document.getElementById("root")
 );

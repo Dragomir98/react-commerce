@@ -21,7 +21,7 @@ const CartItem: FC<Props> = ({ product, onRemove }) => {
         <div className="font-semibold">Price: {product.price.toFixed(2)}$</div>
         <div className="font-semibold">Added quantity: {product.quantity}</div>
       </div>
-      <div>
+      <div className="flex">
         <Button variant="primary" onClick={() => onRemove(product.id)}>
           <TrashIcon />
         </Button>

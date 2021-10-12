@@ -1,44 +1,55 @@
-import { FC, useContext } from "react";
-import CartContext from "../../store/cart-context";
+import { FC } from "react";
+import {
+  cartItemsState,
+  cartQuantityState,
+  cartTotalPriceState,
+  clearCart,
+  removeCartItem,
+} from "../../store/features/cartSlice";
 import Alert from "../../UI/Alert";
 import Button from "../../UI/Button";
 import CartItem from "./CartItem";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 const Cart: FC = () => {
-  const cartCtx = useContext(CartContext);
+  const cartItems = useAppSelector(cartItemsState);
+  const cartQuantity = useAppSelector(cartQuantityState);
+  const cartTotalPrice = useAppSelector(cartTotalPriceState);
+  const dispatch = useAppDispatch();
 
   const clearCartHandler = () => {
-    cartCtx.clearCart();
+    dispatch(clearCart());
   };
 
   const removeItemHandler = (id: string) => {
-    cartCtx.removeFromCart(id);
+    console.log("remove");
+    dispatch(removeCartItem(id));
   };
 
   return (
     <div className="bg-alt-default shadow-inner p-5 m-auto rounded-lg w-auto sm:w-96">
       <h2 className="font-semibold text-3xl text-center">Cart</h2>
       <hr className="my-2" />
-      <p className="font-semibold my-2 text-xl">Items: {cartCtx.quantity}</p>
-      <ul>
-        {cartCtx.items.length === 0 ? (
-          <Alert message="Your cart is currently empty!" variant="error" />
-        ) : (
-          cartCtx.items.map((item) => (
+      <p className="font-semibold my-2 text-xl">Items: {cartQuantity}</p>
+      {cartItems.length <= 0 ? (
+        <Alert message="Your cart is currently empty!" variant="error" />
+      ) : (
+        <div>
+          {cartItems.map((item) => (
             <CartItem
               key={item.id}
               product={item}
               onRemove={removeItemHandler}
             />
-          ))
-        )}
-      </ul>
-      {cartCtx.items.length > 0 && (
+          ))}
+        </div>
+      )}
+      {cartItems.length > 0 && (
         <>
           <hr className="my-2" />
           <div className="flex items-center justify-between flex-col sm:flex-row">
             <p className="font-semibold my-2 sm:my-0">
-              Total Price: {cartCtx.totalPrice.toFixed(2)}$
+              Total Price: {cartTotalPrice.toFixed(2)}$
             </p>
             <Button onClick={() => clearCartHandler()}>Clear Cart</Button>
           </div>

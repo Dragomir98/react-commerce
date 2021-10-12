@@ -1,36 +1,41 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import Product from "../../models/Product";
-import CartContext from "../../store/cart-context";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Button from "../../UI/Button";
 import Card from "../../UI/Card";
 import { CartIcon } from "../../UI/Icons";
 import ProductForm from "./ProductForm";
+import { addCartItem } from "../../store/features/cartSlice";
+import WishlistToggler from "../pages/wishlist/WishlistToggler";
+import { wishlistItemsState } from "../../store/features/wishlistSlice";
 
 const ProductItem: FC<{ product: Product }> = ({ product }) => {
-  const cartCtx = useContext(CartContext);
   const [quantity, setQuantity] = useState(product.quantity);
+  const wishlistItems = useAppSelector(wishlistItemsState);
+  const [wishlistState, setWishlistState] = useState(false);
+  const dispatch = useAppDispatch();
 
   const quantityChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    console.log("pls add");
     const updatedQuantity = +e.target.value;
     setQuantity(updatedQuantity);
   };
 
   const addToCartHandler = (quantity: number) => {
-    console.log("add cart");
-    cartCtx.addToCart({
-      id: product.id,
-      price: product.price,
-      title: product.title,
-      image: product.image,
-      totalPrice: product.totalPrice,
-      isAvailable: product.isAvailable,
-      toWishlist: product.toWishlist,
-      category: product.category,
-      quantity,
-    });
+    dispatch(
+      addCartItem({
+        ...product,
+        quantity,
+      })
+    );
   };
+
+  useEffect(() => {
+    if (wishlistItems.includes(product)) {
+      setWishlistState(true);
+    } else {
+      setWishlistState(false);
+    }
+  }, [wishlistItems, wishlistState]);
 
   return (
     <li className="m-2 max-w-1/2">
@@ -41,13 +46,18 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
             alt={product.title}
             className="max-h-52 rounded-md w-full m-auto mb-4"
           />
-          <div
+          <WishlistToggler
+            product={product}
+            id={product.id}
+            wishlistState={wishlistState}
+          />
+          {/* <div
             className={`absolute top-1 left-1 pointer-events-none p-1 rounded-md text-alt-default ${
               product.isAvailable ? "bg-success" : "bg-error"
             }`}
           >
             {product.isAvailable ? "Available" : "Out of Stock"}
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-row items-center justify-between">
