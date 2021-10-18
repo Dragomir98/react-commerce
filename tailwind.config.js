@@ -36,10 +36,53 @@ module.exports = {
           link: "#a392be",
         },
       },
+      inset: {
+        72: "72px",
+      },
+      keyframes: {
+        drop: {
+          "0%": { height: "0vh" },
+          "100%": { height: "100vh" },
+        },
+        dropReverse: {
+          "0%": { height: "100vh" },
+          "100%": { height: "0vh" },
+        },
+        fade: {
+          "0%": { opacity: 0 },
+          "50%": { opacity: 0.5 },
+          "100%": { opacity: 1 },
+        },
+      },
+      animation: {
+        drop: "drop 0.5s ease-in-out",
+        dropReverse: "dropReverse 0.5s ease-in-out",
+        fade: "fade 0.5s ease-in-out",
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [require("tailwindcss"), require("autoprefixer")],
+  plugins: [
+    require("tailwindcss"),
+    require("autoprefixer"),
+    function ({ addComponents }) {
+      addComponents({
+        ".container": {
+          maxWidth: "100%",
+          "@screen sm": {
+            maxWidth: "480px",
+          },
+          "@screen md": {
+            maxWidth: "768px",
+          },
+          "@screen lg": {
+            maxWidth: "976px",
+          },
+          "@screen xl": null,
+        },
+      });
+    },
+  ],
 };
