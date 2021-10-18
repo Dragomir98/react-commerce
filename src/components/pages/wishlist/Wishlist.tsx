@@ -12,14 +12,18 @@ const wishlistPage = () => {
   return (
     <>
       <h1 className="text-3xl text-center font-semibold py-10">Wishlist</h1>
-      <div className="grid grid-cols-1 px-3 gap-x-6 gap-y-4 md:grid-cols-2 lg:px-0">
+      <div className="container grid grid-cols-1 px-3 gap-x-6 gap-y-4 md:grid-cols-2 lg:px-0">
         {wishlistQuantity > 0 &&
           wishlistItems.map((item) => (
             <WishlistItem product={item} key={item.id} />
           ))}
       </div>
 
-      {wishlistQuantity === 0 && <p>You have no saved items yet!</p>}
+      {wishlistQuantity === 0 && (
+        <p className="text-2xl font-semibold text-center">
+          You have no saved items yet!
+        </p>
+      )}
     </>
   );
 };

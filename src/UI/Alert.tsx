@@ -2,7 +2,7 @@ import { FC } from "react";
 
 type Props = {
   variant?: string;
-  message: string;
+  message: string | Error;
 };
 
 const Alert: FC<Props> = ({ variant = "info", message }) => {

@@ -17,16 +17,19 @@ const Input: FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div>
+    <div className="flex flex-col">
       {!hideLabel && (
-        <label htmlFor={name} className={labelClasses}>
+        <label
+          htmlFor={name}
+          className={`font-semibold mb-1 mt-3 ${labelClasses}`}
+        >
           {label}
         </label>
       )}
       <input
         id={name}
         {...rest}
-        className={`py-2 rounded-md text-center ${inputClasses}`}
+        className={`py-2 rounded-md text-center transition ease-in-out duration-100 border-double border-4 border-secondary-default ${inputClasses} focus:border-solid`}
       />
     </div>
   );

@@ -17,7 +17,7 @@ const WishlistItem: FC<Props> = ({ product }) => {
   };
 
   return (
-    <div className="relative m-auto flex shadow-inner justify-between my-2 items-center bg-alt-default rounded-lg p-2">
+    <div className="relative m-auto flex shadow-inner justify-between items-center bg-alt-default rounded-lg p-2">
       <img
         src={product.image}
         alt={product.title}
