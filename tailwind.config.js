@@ -20,12 +20,15 @@ module.exports = {
       colors: {
         primary: {
           default: "#2f2a38",
+          light: "#32a89e",
         },
         secondary: {
           default: "#8742f5",
+          light: "#a83c32",
         },
         alt: {
           default: "#d6d3db",
+          light: "#a83c32",
         },
         info: "#0e5ae6",
         success: "#218041",
@@ -38,6 +41,10 @@ module.exports = {
       },
       inset: {
         72: "72px",
+      },
+      boxShadow: {
+        defaultOuter: "4px 4px 8px 2px #000000",
+        defaultInner: "inset -2px -2px 12px 2px rgba(0,0,0,0.6)",
       },
       keyframes: {
         drop: {

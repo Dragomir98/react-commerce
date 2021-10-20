@@ -28,8 +28,10 @@ const Input: FC<InputProps> = ({
       )}
       <input
         id={name}
+        className={`p-2 rounded-md ${
+          hideLabel ? "text-center" : "text-left"
+        } transition ease-in-out duration-100 border-solid border-2 border-primary-default focus:outline-none focus:ring focus:border-secondary-default ${inputClasses}`}
         {...rest}
-        className={`py-2 rounded-md text-center transition ease-in-out duration-100 border-double border-4 border-secondary-default ${inputClasses} focus:border-solid`}
       />
     </div>
   );
