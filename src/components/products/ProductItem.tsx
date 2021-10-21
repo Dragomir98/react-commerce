@@ -8,6 +8,8 @@ import ProductForm from "./ProductForm";
 import { addCartItem } from "../../store/features/cartSlice";
 import WishlistToggler from "../pages/wishlist/WishlistToggler";
 import { wishlistItemsState } from "../../store/features/wishlistSlice";
+import Alert from "../../UI/Alert";
+import { Link } from "react-router-dom";
 
 const ProductItem: FC<{ product: Product }> = ({ product }) => {
   const [quantity, setQuantity] = useState(product.quantity);
@@ -32,9 +34,9 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
   useEffect(() => {
     if (wishlistItems.includes(product)) {
       setWishlistState(true);
-    } else {
-      setWishlistState(false);
+      return;
     }
+    setWishlistState(false);
   }, [wishlistItems, wishlistState]);
 
   return (
@@ -51,13 +53,6 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
             id={product.id}
             wishlistState={wishlistState}
           />
-          {/* <div
-            className={`absolute top-1 left-1 pointer-events-none p-1 rounded-md text-alt-default ${
-              product.isAvailable ? "bg-success" : "bg-error"
-            }`}
-          >
-            {product.isAvailable ? "Available" : "Out of Stock"}
-          </div> */}
         </div>
 
         <div className="flex flex-row items-center justify-between">
@@ -68,22 +63,35 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
             </p>
           </div>
 
-          <ProductForm
-            quantity={quantity}
-            onQuantityChange={quantityChangeHandler}
-          />
+          {product.isAvailable ? (
+            <ProductForm
+              quantity={quantity}
+              onQuantityChange={quantityChangeHandler}
+            />
+          ) : (
+            <Alert variant="error" message="Out of Stock!" />
+          )}
         </div>
 
         <div className="flex justify-around mt-2">
-          <Button extraClasses="flex-grow mr-2 flex justify-center">
-            <CartIcon />
-          </Button>
           <Button
-            extraClasses="flex-grow ml-2"
-            onClick={() => addToCartHandler(quantity)}
+            extraClasses={`flex-grow flex justify-center ${
+              product.isAvailable ? "mr-2" : "m-auto"
+            } `}
           >
-            Order
+            <Link to="/cart">
+              <CartIcon />
+            </Link>
           </Button>
+          {product.isAvailable && (
+            <Button
+              variant="secondary"
+              extraClasses="flex-grow ml-2"
+              onClick={() => addToCartHandler(quantity)}
+            >
+              Order
+            </Button>
+          )}
         </div>
       </Card>
     </li>

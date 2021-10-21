@@ -1,39 +1,43 @@
-import { FC } from "react";
-import Product from "../../models/Product";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  productErrorSelector,
+  productItemsSelector,
+  productLoadingSelector,
+} from "../../store/features/products/productsSelectors";
+import { getProducts } from "../../store/features/products/productsSlice";
+import Alert from "../../UI/Alert";
 import ProductItem from "./ProductItem";
 
-const DUMMY_PRODUCTS: Product[] = [
-  {
-    id: "p1",
-    image:
-      "https://www.ikea.com/kr/en/images/products/stefan-chair-brown-black__0727320_pe735593_s5.jpg?f=s",
-    title: "Chair",
-    price: 5.5,
-    quantity: 1,
-    category: "home goods",
-    isAvailable: true,
-    toWishlist: false,
-  },
-  {
-    id: "p2",
-    image:
-      "https://www.ikea.com/us/en/images/products/moerbylanga-table-oak-veneer-brown-stained__0737108_pe740890_s5.jpg",
-    title: "Table",
-    price: 12.5,
-    quantity: 1,
-    category: "home goods",
-    isAvailable: true,
-    toWishlist: false,
-  },
-];
-
 const Products: FC = () => {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(productItemsSelector);
+  const isLoading = useAppSelector(productLoadingSelector);
+  const error = useAppSelector(productErrorSelector);
+
+  useEffect(() => {
+    try {
+      dispatch(getProducts());
+    } catch (err) {
+      console.log(`Error: ${err}`);
+    }
+  }, []);
+
   return (
-    <ul className="m-auto w-full flex justify-center flex-row flex-wrap container">
-      {DUMMY_PRODUCTS.map((product) => (
-        <ProductItem key={product.id} product={product} />
-      ))}
-    </ul>
+    <>
+      {isLoading && <p className="text-center text-2xl">Loading...</p>}
+      {error && <Alert message="Error fetching products" variant="error" />}
+      {products.length === 0 && (
+        <p className="text-center text-2xl">There are currently no products!</p>
+      )}
+      {products.length > 0 && (
+        <ul className="m-auto w-full flex justify-center flex-row flex-wrap container">
+          {products.map((product) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
