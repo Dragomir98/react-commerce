@@ -12,7 +12,11 @@ const HomePage = () => {
           Welcome, {currentUser?.email?.split("@")[0]}!
         </h2>
       )}
-      {!currentUser && <p>You aren't logged in yet!</p>}
+      {!currentUser && (
+        <p className="text-center text-2xl font-semibold">
+          You aren't logged in yet!
+        </p>
+      )}
     </>
   );
 };

@@ -1,14 +1,14 @@
-import { FC, ReactNode } from "react";
+import { FC, HTMLAttributes, ReactNode } from "react";
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   extraClasses?: string;
   children: ReactNode;
-};
+}
 
 const Card: FC<Props> = ({ children, extraClasses }) => {
   return (
     <div
-      className={`p-5 rounded-lg bg-alt-default shadow-defaultInner ${extraClasses}`}
+      className={`p-5 rounded-lg bg-alt-light dark:bg-card-dark shadow-defaultInner ${extraClasses}`}
     >
       {children}
     </div>

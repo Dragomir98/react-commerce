@@ -10,7 +10,7 @@ const wishlistPage = () => {
   const wishlistQuantity = useAppSelector(wishlistQuantityState);
 
   return (
-    <>
+    <section className="m-auto sm:max-w-3/4">
       <h1 className="text-3xl text-center font-semibold py-10">Wishlist</h1>
       <div className="container grid grid-cols-1 px-3 gap-x-6 gap-y-4 md:grid-cols-2 lg:px-0">
         {wishlistQuantity > 0 &&
@@ -24,7 +24,7 @@ const wishlistPage = () => {
           You have no saved items yet!
         </p>
       )}
-    </>
+    </section>
   );
 };
 

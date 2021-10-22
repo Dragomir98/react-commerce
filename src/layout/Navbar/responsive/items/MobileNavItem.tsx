@@ -16,20 +16,20 @@ const MobileNavItem: FC<Props> = ({
   isExact = false,
   ...rest
 }) => {
-  let classes: string = "hover:bg-secondary-default";
+  let classes: string = "hover:bg-link-lightHover dark:hover:bg-secondary-dark";
 
   if (variant === "text") {
     classes =
-      "flex flex-row justify-between items-center hover:bg-secondary-default px-2 my-2";
+      "flex flex-row justify-between items-center hover:bg-link-lightHover dark:hover:bg-secondary-dark px-2 my-2";
   }
 
   return (
     <NavLink
       to={href}
       {...rest}
-      activeClassName="bg-secondary-default"
+      activeClassName="bg-link-lightHover dark:bg-secondary-dark"
       exact={isExact}
-      className={`${extraClasses} text-alt-default cursor-pointer rounded-full p-1 transition ease-in-out duration-100 ${classes}`}
+      className={`${extraClasses} text-alt-light dark:text-alt-dark cursor-pointer rounded-full p-1 transition ease-in-out duration-100 ${classes}`}
     >
       {children}
     </NavLink>

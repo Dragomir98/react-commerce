@@ -14,7 +14,7 @@ const GoogleLogin = () => {
 
   return (
     <div
-      className="p-2 flex items-center justify-center rounded-md shadow-inner bg-alt-default transition-all ease-in-out duration-75 cursor-pointer hover:bg-secondary-default hover:text-alt-default"
+      className="p-2 flex items-center justify-center rounded-md shadow-inner bg-alt-light dark:bg-alt-dark transition-all ease-in-out duration-75 cursor-pointer hover:bg-secondary-light hover:text-alt-light dark:hover:bg-secondary-dark dark:hover:text-alt-dark"
       onClick={googleLoginHandler}
     >
       <span className="text-secondary-default">

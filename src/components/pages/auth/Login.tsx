@@ -1,17 +1,19 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { useAppDispatch } from "../../../hooks/hooks";
 import Button from "../../../UI/Button";
 import Input from "../../../UI/Input";
 import GoogleLogin from "./GoogleLogin";
 import { emailPasswordLogin } from "../../../store/features/auth/authReducers";
+import OptionDelimeter from "../../../UI/OptionDelimeter";
 
 const Register: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const location = useLocation<any>();
 
   const passwordIsInvalid = password.length < 8;
 
@@ -19,7 +21,7 @@ const Register: FC = () => {
     try {
       if (!email || !password || !passwordIsInvalid) {
         dispatch(emailPasswordLogin({ email, password }));
-        history.replace("/");
+        history.replace(location.state?.from ?? "/");
       }
     } catch (err) {
       console.log(err.message);
@@ -27,7 +29,7 @@ const Register: FC = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center h-full max-w-3/4 m-auto md:max-w-1/2">
+    <section className="flex flex-col justify-center h-full m-auto max-w-3/4 md:max-w-1/2">
       <h2 className="text-3xl font-semibold text-center">Sign in</h2>
       <form className="flex flex-col">
         <Input
@@ -47,24 +49,33 @@ const Register: FC = () => {
           required
         />
         <div className="mt-5 text-center">
-          <Button type="button" variant="primary" onClick={login}>
+          <Button
+            type="button"
+            variant="primary"
+            onClick={login}
+            disabled={passwordIsInvalid ? true : false}
+          >
             Login
           </Button>
         </div>
       </form>
-      <div className="flex flex-row items-center">
-        <hr className="h-0.5 w-full bg-black" />
-        <span className="my-4 px-2 font-semibold text-center">OR</span>
-        <hr className="h-0.5 w-full bg-black" />
-      </div>
+      <OptionDelimeter />
       <GoogleLogin />
       <span className="text-center mt-4">
         Haven't signed up with us yet?{" "}
         <Link
           to="/register"
-          className="text-blue-600 hover:text-secondary-default"
+          className="text-blue-600 dark:text-blue-300 hover:text-secondary-light dark:hover:text-secondary-dark"
         >
           Click here to register
+        </Link>
+      </span>
+      <span className="text-center mt-4">
+        <Link
+          to="/forgot-password"
+          className="text-blue-600 dark:text-blue-300 hover:text-secondary-light dark:hover:text-secondary-dark"
+        >
+          Forgotten password?
         </Link>
       </span>
     </section>

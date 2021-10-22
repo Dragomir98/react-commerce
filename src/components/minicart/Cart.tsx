@@ -27,7 +27,7 @@ const Cart: FC = () => {
   };
 
   return (
-    <div className="bg-alt-default shadow-inner p-5 m-auto rounded-lg w-auto sm:w-96">
+    <div className="bg-alt-light dark:bg-alt-dark shadow-defaultInner p-5 m-auto rounded-lg w-auto sm:w-96">
       <h2 className="font-semibold text-3xl text-center">Cart</h2>
       <hr className="my-2" />
       <p className="font-semibold my-2 text-xl">Items: {cartQuantity}</p>

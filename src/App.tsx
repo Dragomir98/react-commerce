@@ -14,6 +14,9 @@ import { auth } from "./firebase";
 import Account from "./components/pages/auth/user/Account";
 import { authStateSelector } from "./store/features/auth/authSelectors";
 import { logoutUser } from "./store/features/auth/authReducers";
+import ProtectedRoute from "./UI/ProtectedRoute";
+import ForgotPassword from "./components/pages/auth/ForgotPassword";
+import ResetPassword from "./components/pages/auth/ResetPassword";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -34,12 +37,22 @@ function App() {
     <Layout>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route path="/wishlist" component={wishlistPage} />
-        <Route path="/cart" component={CartPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/account" component={Account} />
+        <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/wishlist" component={wishlistPage} />
+        <Route exact path="/cart" component={CartPage} />
+        <ProtectedRoute exact path="/login" component={Login} />
+        <ProtectedRoute exact path="/register" component={Register} />
+        <ProtectedRoute
+          exact
+          path="/forgot-password"
+          component={ForgotPassword}
+        />
+        <ProtectedRoute
+          exact
+          path="/reset-password"
+          component={ResetPassword}
+        />
+        <ProtectedRoute exact path="/account" component={Account} />
       </Switch>
     </Layout>
   );

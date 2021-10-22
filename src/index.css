@@ -21,5 +21,5 @@ body,
 }
 
 body {
-  @apply bg-gray-200;
+  @apply bg-body-light dark:bg-body-dark text-text-light dark:text-text-dark;
 }

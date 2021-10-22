@@ -7,6 +7,8 @@ import Input from "../../../UI/Input";
 import { useHistory } from "react-router";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { registerUser } from "../../../store/features/auth/authReducers";
+import OptionDelimeter from "../../../UI/OptionDelimeter";
+import GoogleLogin from "./GoogleLogin";
 
 const Login: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -35,7 +37,7 @@ const Login: FC = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center h-full max-w-3/4 m-auto md:max-w-1/2">
+    <section className="flex flex-col justify-center h-full m-auto max-w-3/4 md:max-w-1/2">
       <h2 className="text-3xl font-semibold text-center">Sign up</h2>
       <form className="flex flex-col">
         <Input
@@ -75,12 +77,11 @@ const Login: FC = () => {
       </form>
       <span className="text-center mt-4">
         Already have an account?{" "}
-        <Link
-          to="/login"
-          className="text-blue-600 hover:text-secondary-default"
-        >
+        <Link to="/login" className="text-blue-600 hover:text-secondary-light">
           Click here to login
         </Link>
+        <OptionDelimeter />
+        <GoogleLogin />
       </span>
     </section>
   );

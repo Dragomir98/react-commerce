@@ -13,16 +13,16 @@ const Button: FC<ButtonProps> = ({
   ...rest
 }) => {
   let buttonVariant =
-    "px-4 py-2 rounded-lg bg-primary-default text-alt-default hover:bg-secondary-default";
+    "px-4 py-2 rounded-lg bg-primary-light dark:bg-primary-dark text-alt-light dark:text-alt-dark hover:bg-secondary-light dark:hover:bg-secondary-dark";
 
   if (variant === "secondary") {
     buttonVariant =
-      "px-4 py-2 rounded-lg bg-secondary-default text-alt-default hover:bg-primary-default";
+      "px-4 py-2 rounded-lg bg-secondary-light dark:bg-secondary-dark text-alt-light dark:text-alt-dark hover:bg-primary-light dark:hover:bg-primary-dark";
   }
 
   if (variant === "small") {
     buttonVariant =
-      "bg-secondary-default text-alt-default hover:bg-primary-default";
+      "bg-secondary-light dark:bg-secondary-dark text-alt-light dark:text-alt-dark hover:bg-primary-light dark:hover:bg-primary-dark";
   }
 
   const styles: string = `transition ease-in-out duration-150 ${buttonVariant} ${extraClasses}`;

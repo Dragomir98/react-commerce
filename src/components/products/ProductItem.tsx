@@ -52,6 +52,7 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
             product={product}
             id={product.id}
             wishlistState={wishlistState}
+            position="absolute"
           />
         </div>
 

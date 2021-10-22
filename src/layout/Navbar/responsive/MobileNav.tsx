@@ -1,22 +1,32 @@
 import { FC } from "react";
-import { CartIcon, HomeIcon, UserIcon } from "../../../UI/Icons";
+import { CartIcon, HomeIcon, ShopIcon } from "../../../UI/Icons";
+import AuthMenu from "./items/authMenu/AuthMenu";
 import BurgerMenu from "./items/BurgerMenu";
 import MobileNavIcon from "./items/MobileNavIcon";
 import MobileNavItem from "./items/MobileNavItem";
+import ThemeToggler from "./theme/ThemeToggler";
 
 const MobileNav: FC = () => {
   return (
-    <nav className="p-5 bg-primary-default flex flex-row justify-between text-alt-default sm:flex-row">
+    <nav className="p-5 bg-primary-light dark:bg-primary-dark flex flex-row justify-between text-alt-light dark:text-alt-dark sm:flex-row">
       <div className="flex items-center">
         <BurgerMenu />
-      </div>
-      <div className="flex flex-row items-center">
-        <MobileNavItem href="/" isExact={true} variant="icon">
+        <MobileNavItem
+          href="/"
+          isExact={true}
+          variant="icon"
+          extraClasses="ml-2"
+        >
           <MobileNavIcon icon={<HomeIcon />} />
         </MobileNavItem>
-        <MobileNavItem href="/account" variant="icon" extraClasses="mx-2">
-          <MobileNavIcon icon={<UserIcon />} />
+        <ThemeToggler />
+      </div>
+
+      <div className="flex flex-row items-center">
+        <MobileNavItem href="/shop" isExact={true} variant="icon">
+          <MobileNavIcon icon={<ShopIcon />} />
         </MobileNavItem>
+        <AuthMenu isMobile={true} />
         <MobileNavItem href="/cart" variant="icon">
           <MobileNavIcon icon={<CartIcon />} />
         </MobileNavItem>

@@ -19,9 +19,9 @@ const NavLinkItem: React.FC<Props> = ({
   return (
     <NavLink
       to={href}
-      activeClassName="bg-hover-link"
+      activeClassName="bg-link-lightHover dark:bg-link-darkHover"
       exact={isExact}
-      className={`p-2 rounded-lg bg-secondary-default transition ease-in-out duration-150 hover:bg-hover-link ${extraClasses}`}
+      className={`p-2 rounded-lg bg-secondary-light dark:bg-primary-dark transition ease-in-out duration-150 text-text-light dark:text-alt-dark hover:bg-link-lightHover dark:hover:bg-link-darkHover ${extraClasses}`}
       {...rest}
     >
       {hasLabel ? (

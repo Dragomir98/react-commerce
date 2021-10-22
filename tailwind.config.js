@@ -1,6 +1,6 @@
 module.exports = {
   purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     container: {
       center: true,
@@ -15,29 +15,63 @@ module.exports = {
       "1/4": "25%",
       "1/2": "50%",
       "3/4": "75%",
+      full: "100%",
     },
     extend: {
       colors: {
         primary: {
-          default: "#2f2a38",
-          light: "#32a89e",
+          dark: "#2f2a38",
+          light: "rgb(103 169 237)",
         },
         secondary: {
-          default: "#8742f5",
-          light: "#a83c32",
+          dark: "#8742f5",
+          light: "rgb(216 231 248)",
         },
         alt: {
-          default: "#d6d3db",
-          light: "#a83c32",
+          dark: "rgb(254 44 50)",
+          light: "#ebebeb",
+        },
+        text: {
+          dark: "#ededed",
+          light: "#212121",
+        },
+        link: {
+          darkHover: "#374151",
+          lightHover: "#5c75d1",
+        },
+        body: {
+          dark: "#374151",
+          light: "#f0f0f0",
+        },
+        card: {
+          dark: "#646a6e",
+          light: "#d1dfe6",
         },
         info: "#0e5ae6",
         success: "#218041",
         error: "#912020",
         pending: "#e6970e",
         hover: {
-          card: "",
           link: "#a392be",
         },
+      },
+      minHeight: {
+        25: "25px",
+        50: "50px",
+        85: "85px",
+        100: "100px",
+        105: "105px",
+        125: "125px",
+        150: "150px",
+      },
+      maxHeight: {
+        25: "25px",
+        50: "50px",
+        85: "85px",
+        100: "100px",
+        105: "105px",
+        125: "125px",
+        150: "150px",
       },
       inset: {
         72: "72px",
@@ -64,7 +98,7 @@ module.exports = {
       animation: {
         drop: "drop 0.5s ease-in-out",
         dropReverse: "dropReverse 0.5s ease-in-out",
-        fade: "fade 0.5s ease-in-out",
+        fade: "fade 0.8s ease-in-out",
       },
     },
   },
