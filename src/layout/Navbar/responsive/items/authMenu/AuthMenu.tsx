@@ -30,13 +30,13 @@ const AuthMenu: FC<Props> = ({ isMobile = false }) => {
       {isMobile ? (
         <span
           ref={triggerRef}
-          className="p-1 rounded-full hover:bg-link-lightHover dark:hover:bg-secondary-dark"
+          className="p-1 rounded-full hover:bg-link-lightHover dark:hover:bg-card-dark"
         >
           <MobileNavIcon icon={<UserIcon />} />
         </span>
       ) : (
         <span
-          className="cursor-pointer p-2 rounded-lg transition ease-in-out duration-150 text-text-light dark:text-alt-dark hover:bg-link-lightHover dark:hover:bg-link-darkHover"
+          className="cursor-pointer p-2 rounded-lg transition ease-in-out duration-150 bg-secondary-light dark:bg-primary-dark text-primary-light hover:text-alt-light dark:text-alt-dark hover:bg-link-lightHover dark:hover:bg-link-darkHover"
           ref={triggerRef}
         >
           <UserIcon />

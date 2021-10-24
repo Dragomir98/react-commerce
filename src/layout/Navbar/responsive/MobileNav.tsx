@@ -8,7 +8,7 @@ import ThemeToggler from "./theme/ThemeToggler";
 
 const MobileNav: FC = () => {
   return (
-    <nav className="p-5 bg-primary-light dark:bg-primary-dark flex flex-row justify-between text-alt-light dark:text-alt-dark sm:flex-row">
+    <nav className="fixed z-50 w-full p-5 bg-primary-light dark:bg-primary-dark flex flex-row justify-between text-alt-light dark:text-alt-dark sm:flex-row">
       <div className="flex items-center">
         <BurgerMenu />
         <MobileNavItem

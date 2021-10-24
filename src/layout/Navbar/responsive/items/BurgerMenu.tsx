@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { authStateSelector } from "../../../../store/features/auth/authSelectors";
-import {
-  BurgerIcon,
-  LogoutIcon,
-  StarIcon,
-  UserIcon,
-} from "../../../../UI/Icons";
+import { BurgerIcon, StarIcon, UserIcon } from "../../../../UI/Icons";
 import MobileNavIcon from "./MobileNavIcon";
 import MobileNavItem from "./MobileNavItem";
 
@@ -24,7 +19,7 @@ const BurgerMenu = () => {
   return (
     <div className="relative">
       <div
-        className="text-alt-light dark:text-alt-dark cursor-pointer rounded-full p-1 transition ease-in-out duration-100 hover:bg-link-lightHover dark:hover:bg-secondary-dark"
+        className="text-alt-light dark:text-alt-dark cursor-pointer rounded-full p-1 transition ease-in-out duration-100 hover:bg-link-lightHover dark:hover:bg-card-dark"
         onClick={menuOpenHandler}
       >
         <BurgerIcon />

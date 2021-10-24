@@ -17,6 +17,9 @@ import { logoutUser } from "./store/features/auth/authReducers";
 import ProtectedRoute from "./UI/ProtectedRoute";
 import ForgotPassword from "./components/pages/auth/ForgotPassword";
 import ResetPassword from "./components/pages/auth/ResetPassword";
+import AddProductForm from "./components/pages/auth/user/admin/AddProductForm";
+import EditProductForm from "./components/pages/auth/user/admin/EditProductForm";
+import ProductDetails from "./components/products/product-item/ProductDetails";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,6 +41,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/product/:id" component={ProductDetails} />
         <Route exact path="/wishlist" component={wishlistPage} />
         <Route exact path="/cart" component={CartPage} />
         <ProtectedRoute exact path="/login" component={Login} />
@@ -53,6 +57,12 @@ function App() {
           component={ResetPassword}
         />
         <ProtectedRoute exact path="/account" component={Account} />
+        <ProtectedRoute exact path="/add-product" component={AddProductForm} />
+        <ProtectedRoute
+          exact
+          path="/edit-product"
+          component={EditProductForm}
+        />
       </Switch>
     </Layout>
   );

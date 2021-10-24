@@ -23,3 +23,11 @@ body,
 body {
   @apply bg-body-light dark:bg-body-dark text-text-light dark:text-text-dark;
 }
+
+.hover-target {
+  transition: all ease-in-out 0.2s;
+}
+
+.hover-trigger:hover .hover-target {
+  transform: scaleY(1.05) scaleX(1.05);
+}

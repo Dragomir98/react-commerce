@@ -7,7 +7,7 @@ import ThemeToggler from "./theme/ThemeToggler";
 
 const DesktopNav: FC = () => {
   return (
-    <nav className="p-5 bg-primary-default flex flex-col justify-between bg-primary-light dark:bg-primary-dark text-alt-light dark:text-alt-dark sm:flex-row">
+    <nav className="fixed z-50 w-full p-5 bg-primary-default flex flex-col justify-between bg-primary-light dark:bg-primary-dark text-alt-light dark:text-alt-dark sm:flex-row">
       <div className="flex flex-row flex-grow">
         <NavLinkItem
           href="/"
