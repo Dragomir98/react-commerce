@@ -1,4 +1,4 @@
-## E-Commerce store, with multiple authentification methods
+## E-Commerce store, with email/password and google authentication methods
 
 ### Tools, used for building the application:
 <p align="left">
