@@ -30,7 +30,7 @@ const Input: FC<InputProps> = ({
         id={name}
         className={`p-2 rounded-md ${
           hideLabel ? "text-center" : "text-left"
-        } transition ease-in-out duration-100 border-solid border-2 border-primary-light dark:border-primary-dark focus:outline-none focus:ring focus:border-secondary-light dark:focus:border-primary-dark ${inputClasses}`}
+        } text-text-light transition ease-in-out duration-100 border-solid border-2 border-primary-light dark:border-primary-dark focus:outline-none focus:ring focus:border-secondary-light dark:focus:border-primary-dark ${inputClasses}`}
         {...rest}
       />
     </div>
