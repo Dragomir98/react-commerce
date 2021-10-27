@@ -20,7 +20,7 @@ const MobileNavItem: FC<Props> = ({
 
   if (variant === "text") {
     classes =
-      "flex flex-row justify-between items-center hover:bg-link-lightHover dark:hover:bg-card-dark px-2 my-2";
+      "flex flex-row justify-between items-center hover:bg-link-lightHover dark:hover:bg-card-dark font-semibold px-2 my-2";
   }
 
   return (

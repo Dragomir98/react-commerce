@@ -1,6 +1,6 @@
 module.exports = {
   purge: [],
-  darkMode: "class", // or 'media' or 'class'
+  darkMode: "class",
   theme: {
     container: {
       center: true,
@@ -63,6 +63,7 @@ module.exports = {
         105: "105px",
         125: "125px",
         150: "150px",
+        inherit: "inherit",
       },
       maxHeight: {
         25: "25px",
@@ -72,6 +73,7 @@ module.exports = {
         105: "105px",
         125: "125px",
         150: "150px",
+        inherit: "inherit",
       },
       inset: {
         72: "72px",

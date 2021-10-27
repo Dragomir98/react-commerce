@@ -1,5 +1,6 @@
 import { FC } from "react";
 import CartCounter from "../../../components/minicart/CartCounter";
+import MinicartToggler from "../../../components/minicart/MinicartToggler";
 import { CartIcon, HomeIcon, ShopIcon, StarIcon } from "../../../UI/Icons";
 import NavLinkItem from "../../../UI/NavLinkItem";
 import AuthMenu from "./items/authMenu/AuthMenu";
@@ -7,7 +8,7 @@ import ThemeToggler from "./theme/ThemeToggler";
 
 const DesktopNav: FC = () => {
   return (
-    <nav className="fixed z-50 w-full p-5 bg-primary-default flex flex-col justify-between bg-primary-light dark:bg-primary-dark text-alt-light dark:text-alt-dark sm:flex-row">
+    <nav className="fixed z-20 w-full p-5 bg-primary-default flex flex-col justify-between bg-primary-light dark:bg-primary-dark text-alt-light dark:text-alt-dark sm:flex-row">
       <div className="flex flex-row flex-grow">
         <NavLinkItem
           href="/"
@@ -33,10 +34,8 @@ const DesktopNav: FC = () => {
         <NavLinkItem href="/wishlist" extraClasses="mr-2">
           <StarIcon />
         </NavLinkItem>
-        <NavLinkItem href="/cart" extraClasses="flex">
-          <CartCounter />
-          <CartIcon />
-        </NavLinkItem>
+
+        <MinicartToggler />
       </div>
     </nav>
   );
