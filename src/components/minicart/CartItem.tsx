@@ -10,7 +10,7 @@ type Props = {
 
 const CartItem: FC<Props> = ({ product, onRemove }) => {
   return (
-    <div className="flex justify-between my-2 items-center bg-purple-300 rounded-lg p-2">
+    <div className="flex justify-between my-2 items-center rounded-lg p-2 text-alt-light bg-primary-light dark:bg-body-dark">
       <img
         src={product.image}
         alt={product.title}
@@ -21,7 +21,7 @@ const CartItem: FC<Props> = ({ product, onRemove }) => {
         <div className="font-semibold">Price: {product.price.toFixed(2)}$</div>
         <div className="font-semibold">Added quantity: {product.quantity}</div>
       </div>
-      <div className="flex">
+      <div className="flex sm:min-h-100">
         <Button variant="primary" onClick={() => onRemove(product.id)}>
           <TrashIcon />
         </Button>

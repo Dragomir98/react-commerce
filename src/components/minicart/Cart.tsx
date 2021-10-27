@@ -22,12 +22,11 @@ const Cart: FC = () => {
   };
 
   const removeItemHandler = (id: string) => {
-    console.log("remove");
     dispatch(removeCartItem(id));
   };
 
   return (
-    <div className="bg-alt-light dark:bg-alt-dark shadow-defaultInner p-5 m-auto rounded-lg w-auto sm:w-96">
+    <div className="w-auto sm:w-96 px-5 pt-5">
       <h2 className="font-semibold text-3xl text-center">Cart</h2>
       <hr className="my-2" />
       <p className="font-semibold my-2 text-xl">Items: {cartQuantity}</p>
@@ -48,7 +47,7 @@ const Cart: FC = () => {
         <>
           <hr className="my-2" />
           <div className="flex items-center justify-between flex-col sm:flex-row">
-            <p className="font-semibold my-2 sm:my-0">
+            <p className="text-xl font-semibold my-2 sm:my-0">
               Total Price: {cartTotalPrice.toFixed(2)}$
             </p>
             <Button onClick={() => clearCartHandler()}>Clear Cart</Button>
