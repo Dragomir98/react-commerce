@@ -11,6 +11,10 @@ const MinicartToggler: FC = () => {
     setShow(show);
   };
 
+  const closeCartHandler = () => {
+    setShow(false);
+  };
+
   return (
     <>
       <div
@@ -25,7 +29,7 @@ const MinicartToggler: FC = () => {
       </div>
 
       <Minicart
-        toggleHandler={toggleMinicartHandler}
+        closeHandler={closeCartHandler}
         showMinicart={show}
         distributedRef={nodeRef}
       />
