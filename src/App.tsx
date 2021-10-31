@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { observeCurrentUser } from "./store/features/auth/authSlice";
-import { auth } from "./firebase";
+import firestoreDb, { auth } from "./firebase";
 import Account from "./components/pages/auth/user/Account";
 import { authStateSelector } from "./store/features/auth/authSelectors";
 import { logoutUser } from "./store/features/auth/authReducers";
@@ -20,15 +20,20 @@ import ResetPassword from "./components/pages/auth/ResetPassword";
 import AddProductForm from "./components/pages/auth/user/admin/AddProductForm";
 import EditProductForm from "./components/pages/auth/user/admin/EditProductForm";
 import ProductDetails from "./components/products/product-item/ProductDetails";
+import FinishOrder from "./components/pages/order/FinishOrder";
+import { doc, getDoc } from "@firebase/firestore";
 
 function App() {
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(authStateSelector);
 
+  //observe auth state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user && !isAuthenticated) {
-        dispatch(observeCurrentUser(user));
+        const usersCollectionRef = doc(firestoreDb, "users", user.uid);
+        const currentUser = await getDoc(usersCollectionRef);
+        dispatch(observeCurrentUser(currentUser.data()));
       } else if (!user && !isAuthenticated) {
         dispatch(logoutUser());
       }
@@ -63,6 +68,7 @@ function App() {
           path="/edit-product"
           component={EditProductForm}
         />
+        <Route exact path="/finish-order" component={FinishOrder} />
       </Switch>
     </Layout>
   );

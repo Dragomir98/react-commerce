@@ -49,11 +49,17 @@ export const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(googleLogin.fulfilled, (state, { payload }) => {
-      state.currentUser = payload;
-      state.isAuthenticated = true;
       state.isLoading = false;
       state.hasError = false;
+      if (typeof payload === null || typeof payload === "undefined") {
+        state.currentUser = null;
+        state.isAuthenticated = false;
+        return;
+      }
+      state.currentUser = payload;
+      state.isAuthenticated = true;
     });
+
     builder.addCase(googleLogin.rejected, (state) => {
       state.hasError = true;
       state.isLoading = false;

@@ -1,6 +1,5 @@
 import { getAuth } from "@firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 
 const config = {
