@@ -28,8 +28,9 @@ const Login: FC = () => {
         !passwordIsInvalid ||
         (!confirmPasswordIsInvalid && !passwordsDontMatch)
       ) {
-        dispatch(registerUser({ email, password }));
-        history.replace("/login");
+        dispatch(registerUser({ email, password })).then(() => {
+          history.replace("/login");
+        });
       }
     } catch (err) {
       console.log(err.message);

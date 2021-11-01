@@ -5,7 +5,14 @@ import {
   signInWithPopup,
   signOut,
 } from "@firebase/auth";
-import { doc, getDoc, setDoc } from "@firebase/firestore";
+import {
+  doc,
+  DocumentData,
+  DocumentReference,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import firestoreDb, { auth } from "../../../firebase";
 import User from "../../../models/User";
@@ -14,6 +21,11 @@ interface RegisterAuthArgs {
   email: string;
   password: string;
   userDetails?: User;
+}
+
+interface UpdatedUser {
+  updatedUserDetails: User;
+  currentUserRef: DocumentReference<DocumentData>;
 }
 
 export const registerUser = createAsyncThunk(
@@ -35,7 +47,8 @@ export const registerUser = createAsyncThunk(
         email,
         firstName: null,
         lastName: null,
-        profilePic: null,
+        profilePic:
+          "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png",
         phoneNumber: null,
         isAdmin: false,
       });
@@ -56,7 +69,6 @@ export const emailPasswordLogin = createAsyncThunk(
       const usersCollectionRef = doc(firestoreDb, "users", userId);
       const userSnapshot = await getDoc(usersCollectionRef);
       return userSnapshot.data();
-      // return result.user;
     } catch (err) {
       return rejectWithValue({ error: err.message });
     }
@@ -100,6 +112,26 @@ export const logoutUser = createAsyncThunk(
   async (req, { rejectWithValue }) => {
     try {
       await signOut(auth).then((res) => res);
+    } catch (err) {
+      return rejectWithValue({ error: err.message });
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "updateUser",
+  async (
+    { updatedUserDetails, currentUserRef }: UpdatedUser,
+    { rejectWithValue }
+  ) => {
+    try {
+      await updateDoc(currentUserRef, {
+        ...updatedUserDetails,
+        firstName: updatedUserDetails.firstName,
+        lastName: updatedUserDetails.lastName,
+        profilePic: updatedUserDetails.profilePic,
+        phoneNumber: updatedUserDetails.phoneNumber,
+      });
     } catch (err) {
       return rejectWithValue({ error: err.message });
     }

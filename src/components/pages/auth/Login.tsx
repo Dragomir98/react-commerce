@@ -20,8 +20,9 @@ const Register: FC = () => {
   const login = () => {
     try {
       if (!email || !password || !passwordIsInvalid) {
-        dispatch(emailPasswordLogin({ email, password }));
-        history.replace(location.state?.from ?? "/");
+        dispatch(emailPasswordLogin({ email, password })).then(() => {
+          history.replace(location.state?.from ?? "/");
+        });
       }
     } catch (err) {
       console.log(err.message);

@@ -11,10 +11,6 @@ const store = configureStore({
     cart: cartReducer,
     wishlist: wishlistReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

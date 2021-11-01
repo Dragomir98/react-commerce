@@ -4,6 +4,7 @@ import {
   googleLogin,
   logoutUser,
   registerUser,
+  updateUser,
 } from "./authReducers";
 
 //initial state setup
@@ -89,6 +90,20 @@ export const authSlice = createSlice({
     builder.addCase(logoutUser.rejected, (state) => {
       state.hasError = true;
       state.isLoading = false;
+    });
+
+    builder.addCase(updateUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state) => {
+      state.isLoading = false;
+      state.isAuthenticated = true;
+      state.hasError = false;
+    });
+    builder.addCase(updateUser.rejected, (state) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.hasError = true;
     });
   },
 });
