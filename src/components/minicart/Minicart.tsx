@@ -1,8 +1,10 @@
 import { FC, forwardRef } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
 import Button from "../../UI/Button";
 import Cart from "./Cart";
+import { useHistory } from "react-router";
+import { cartItemsState } from "../../store/features/cartSlice";
+import { useAppSelector } from "../../hooks/hooks";
 
 const cartModal = document.querySelector<Element>("#cart-modal");
 
@@ -14,6 +16,18 @@ interface MinicartProps {
 
 const Minicart: FC<MinicartProps> = forwardRef(
   ({ showMinicart, closeHandler, distributedRef }, ref) => {
+    const cartItems = useAppSelector(cartItemsState);
+    const history = useHistory();
+
+    const finishOrderNavigationHandler = () => {
+      if (cartItems.length === 0) {
+        console.log("You need to add products to your cart to proceed!");
+        return;
+      }
+      history.push("/finish-order");
+      closeHandler();
+    };
+
     return createPortal(
       <>
         {showMinicart && (
@@ -31,8 +45,13 @@ const Minicart: FC<MinicartProps> = forwardRef(
                 >
                   Close
                 </Button>
-                <Button aria-label="order" extraClasses="flex-grow ml-2">
-                  <Link to="/finish-order">Order</Link>
+                <Button
+                  aria-label="order"
+                  extraClasses="flex-grow ml-2"
+                  onClick={finishOrderNavigationHandler}
+                  disabled={cartItems.length ? false : true}
+                >
+                  Order
                 </Button>
               </div>
             </main>

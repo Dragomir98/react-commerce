@@ -10,15 +10,18 @@ import Alert from "../../UI/Alert";
 import Button from "../../UI/Button";
 import CartItem from "./CartItem";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { useHistory } from "react-router";
 
 const Cart: FC = () => {
   const cartItems = useAppSelector(cartItemsState);
   const cartQuantity = useAppSelector(cartQuantityState);
   const cartTotalPrice = useAppSelector(cartTotalPriceState);
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   const clearCartHandler = () => {
     dispatch(clearCart());
+    history.replace("/shop");
   };
 
   const removeItemHandler = (id: string) => {
@@ -27,13 +30,11 @@ const Cart: FC = () => {
 
   return (
     <div className="w-auto sm:w-96 px-5 pt-5">
-      <h2 className="font-semibold text-3xl text-center">Cart</h2>
-      <hr className="my-2" />
       <p className="font-semibold my-2 text-xl">Items: {cartQuantity}</p>
       {cartItems.length <= 0 ? (
         <Alert message="Your cart is currently empty!" variant="error" />
       ) : (
-        <div>
+        <div className="max-h-250 overflow-y-scroll">
           {cartItems.map((item) => (
             <CartItem
               key={item.id}

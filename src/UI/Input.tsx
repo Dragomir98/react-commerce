@@ -3,6 +3,7 @@ import { FC, InputHTMLAttributes } from "react";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name?: string;
+  containerClasses?: string;
   labelClasses?: string;
   inputClasses?: string;
   hideLabel?: boolean;
@@ -11,13 +12,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input: FC<InputProps> = ({
   name,
   label,
+  containerClasses,
   labelClasses,
   inputClasses,
-  hideLabel = true,
+  hideLabel = false,
   ...rest
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col flex-grow ${containerClasses}`}>
       {!hideLabel && (
         <label
           htmlFor={name}

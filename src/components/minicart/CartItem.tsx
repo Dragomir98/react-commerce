@@ -14,7 +14,7 @@ const CartItem: FC<Props> = ({ product, onRemove }) => {
       <img
         src={product.image}
         alt={product.title}
-        className="max-w-1/4 rounded-lg"
+        className="max-h-100 rounded-lg"
       />
       <div className="flex flex-col px-2">
         <h2 className="font-semibold text-xl">{product.title}</h2>

@@ -63,6 +63,8 @@ module.exports = {
         105: "105px",
         125: "125px",
         150: "150px",
+        250: "250px",
+        500: "500px",
         inherit: "inherit",
       },
       maxHeight: {
@@ -73,6 +75,8 @@ module.exports = {
         105: "105px",
         125: "125px",
         150: "150px",
+        250: "250px",
+        500: "500px",
         inherit: "inherit",
       },
       inset: {
