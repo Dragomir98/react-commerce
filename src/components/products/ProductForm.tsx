@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import Input from "../../UI/Input";
 
 const ProductForm: React.FC<{
-  quantity: number;
+  quantity: number | undefined;
   onQuantityChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }> = (props) => {
   return (
@@ -10,11 +10,12 @@ const ProductForm: React.FC<{
       <form className="flex flex-row items-center justify-between">
         <Input
           type="number"
-          value={props.quantity}
+          defaultValue={props.quantity}
           min={1}
           max={10}
           step={1}
           onChange={props.onQuantityChange}
+          hideLabel={true}
         />
       </form>
     </div>

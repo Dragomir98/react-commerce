@@ -7,6 +7,7 @@ import {
 } from "../../store/features/products/productsSelectors";
 import { getProducts } from "../../store/features/products/productsSlice";
 import Alert from "../../UI/Alert";
+import Loader from "../../UI/Loader";
 import ProductItem from "./ProductItem";
 
 const Products: FC = () => {
@@ -25,13 +26,15 @@ const Products: FC = () => {
 
   return (
     <>
-      {isLoading && <p className="text-center text-2xl">Loading...</p>}
+      {isLoading && <Loader />}
       {error && <Alert message="Error fetching products" variant="error" />}
-      {products.length === 0 && (
-        <p className="text-center text-2xl">There are currently no products!</p>
+      {!isLoading && products.length === 0 && (
+        <p className="text-center text-2xl font-semibold">
+          There are currently no products!
+        </p>
       )}
       {products.length > 0 && (
-        <ul className="m-auto w-full flex justify-center flex-row flex-wrap container">
+        <ul className="m-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
           {products.map((product) => (
             <ProductItem key={product.id} product={product} />
           ))}

@@ -1,24 +1,21 @@
-import { child, get, ref } from "@firebase/database";
+import { collection, getDocs } from "@firebase/firestore";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import db from "../../../firebase";
+import firestoreDb from "../../../firebase";
 import Product from "../../../models/Product";
 import { RootState } from "../../store";
 
-interface Payload {
-  items: Product[];
-  loading?: boolean;
-  hasErrors?: boolean;
-}
+const productsCollectionRef = collection(firestoreDb, "products");
 
-const dbRef = ref(db);
-
-export const getProducts = createAsyncThunk<Payload>(
+export const getProducts = createAsyncThunk(
   "getProducts",
-  async (req, thunkAPI) => {
+  async (req, thunkAPI: any) => {
     try {
-      const response = await get(child(dbRef, "products"));
-      const items = response.val();
-      return items;
+      const response = await getDocs(productsCollectionRef);
+      const documents = response.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      return documents;
     } catch (err) {
       return thunkAPI.rejectWithValue({ error: err.message });
     }
@@ -47,17 +44,8 @@ export const productsSlice = createSlice({
     }),
       builder.addCase(getProducts.fulfilled, (state, { payload }) => {
         state.loading = false;
-
-        const transformedItems = Object.entries(payload).reduce(
-          (arr: Product[], item: any) => {
-            const transformedItem: Product = item[1];
-            transformedItem["id"] = item[0];
-            arr.push(transformedItem);
-            return arr;
-          },
-          []
-        );
-        state.items = transformedItems;
+        state.hasErrors = false;
+        state.items = payload;
       }),
       builder.addCase(getProducts.rejected, (state) => {
         state.loading = false;

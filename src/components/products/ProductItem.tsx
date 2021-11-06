@@ -1,9 +1,9 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useCallback, useEffect, useState } from "react";
 import Product from "../../models/Product";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Button from "../../UI/Button";
 import Card from "../../UI/Card";
-import { CartIcon } from "../../UI/Icons";
+import { LoopDocumentIcon } from "../../UI/Icons";
 import ProductForm from "./ProductForm";
 import { addCartItem } from "../../store/features/cartSlice";
 import WishlistToggler from "../pages/wishlist/WishlistToggler";
@@ -12,24 +12,33 @@ import Alert from "../../UI/Alert";
 import { Link } from "react-router-dom";
 
 const ProductItem: FC<{ product: Product }> = ({ product }) => {
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [quantity, setQuantity] = useState<number>(product.quantity);
   const wishlistItems = useAppSelector(wishlistItemsState);
-  const [wishlistState, setWishlistState] = useState(false);
+  const [wishlistState, setWishlistState] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const quantityChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const updatedQuantity = +e.target.value;
-    setQuantity(updatedQuantity);
-  };
+  const quantityChangeHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (+e.target.value > product.stockQuantity) {
+        return;
+      }
+      const updatedQuantity = +e.target.value;
+      setQuantity(updatedQuantity);
+    },
+    []
+  );
 
-  const addToCartHandler = (quantity: number) => {
+  const addToCartHandler = useCallback((quantity: number) => {
+    if (quantity > product.stockQuantity) {
+      return;
+    }
     dispatch(
       addCartItem({
         ...product,
         quantity,
       })
     );
-  };
+  }, []);
 
   useEffect(() => {
     if (wishlistItems.includes(product)) {
@@ -40,13 +49,13 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
   }, [wishlistItems, wishlistState]);
 
   return (
-    <li className="m-2 max-w-1/2">
+    <li className="m-2 hover-trigger">
       <Card>
-        <div className="relative">
+        <div className="relative hover-target">
           <img
             src={product.image}
             alt={product.title}
-            className="max-h-52 rounded-md w-full m-auto mb-4"
+            className="max-h-52 rounded-md w-full m-auto mb-4 hover-target"
           />
           <WishlistToggler
             product={product}
@@ -54,16 +63,32 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
             wishlistState={wishlistState}
             position="absolute"
           />
+          <Link
+            to={`/product/${product.id}`}
+            className="absolute top-1 right-1 cursor-pointer transition-all ease-in-out duration-100 text-info hover:text-hover-link"
+          >
+            <LoopDocumentIcon />
+          </Link>
         </div>
 
         <div className="flex flex-row items-center justify-between">
-          <div>
-            <p className="text-xl font-semibold">{product.title}</p>
+          <div className="mr-2">
+            <Link
+              to={`/product/${product.id}`}
+              className="text-xl font-semibold hover:underline"
+            >
+              {product.title}
+            </Link>
+            <p className="text-md font-semibold">
+              Category: {product.category}
+            </p>
             <p className="text-md font-semibold mb-2">
               Price: {product.price.toFixed(2)}$
             </p>
           </div>
+        </div>
 
+        <div className="flex justify-around items-center mt-2 flex-row">
           {product.isAvailable ? (
             <ProductForm
               quantity={quantity}
@@ -72,25 +97,13 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
           ) : (
             <Alert variant="error" message="Out of Stock!" />
           )}
-        </div>
-
-        <div className="flex justify-around mt-2">
-          <Button
-            extraClasses={`flex-grow flex justify-center ${
-              product.isAvailable ? "mr-2" : "m-auto"
-            } `}
-          >
-            <Link to="/cart">
-              <CartIcon />
-            </Link>
-          </Button>
           {product.isAvailable && (
             <Button
               variant="secondary"
-              extraClasses="flex-grow ml-2"
+              extraClasses="ml-2 w-full"
               onClick={() => addToCartHandler(quantity)}
             >
-              Order
+              Add
             </Button>
           )}
         </div>

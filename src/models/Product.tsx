@@ -4,6 +4,7 @@ type Product = {
   title: string;
   price: number;
   quantity: number;
+  stockQuantity: number;
   category: string;
   isAvailable: boolean;
 };
