@@ -1,10 +1,5 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import Select from "react-select";
-
-interface SelectOption {
-  value: string;
-  label: string;
-}
 
 interface SelectMenuProps {
   onChange: (selectedOption: string | null) => void;

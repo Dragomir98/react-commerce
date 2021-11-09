@@ -100,11 +100,17 @@ module.exports = {
           "50%": { opacity: 0.5 },
           "100%": { opacity: 1 },
         },
+        fadeOut: {
+          "0%": { opacity: 1 },
+          "50%": { opacity: 0.5 },
+          "100%": { opacity: 0 },
+        },
       },
       animation: {
         drop: "drop 0.5s ease-in-out",
         dropReverse: "dropReverse 0.5s ease-in-out",
         fade: "fade 0.8s ease-in-out",
+        fadeOut: "fadeOut 0.8s ease-in-out",
       },
     },
   },
