@@ -11,6 +11,7 @@ import {
 import Button from "../../../../UI/Button";
 import Input from "../../../../UI/Input";
 import Loader from "../../../../UI/Loader";
+import { errorToast, successToast } from "../../../../UI/Toasts";
 
 const EditDetailsForm: FC = () => {
   const currentUser = useAppSelector(currentUserSelector);
@@ -46,8 +47,10 @@ const EditDetailsForm: FC = () => {
       dispatch(updateUser({ updatedUserDetails, currentUserRef })).then(() =>
         window.location.reload()
       );
+      successToast("Your account details have successfully been updated!");
     } catch (err) {
       console.log(`Error: ${err}`);
+      errorToast("An error occured during details updating!");
     }
   };
 

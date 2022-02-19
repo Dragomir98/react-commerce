@@ -11,6 +11,7 @@ import Button from "../../UI/Button";
 import CartItem from "./CartItem";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import { useHistory } from "react-router";
+import { successToast } from "../../UI/Toasts";
 
 const Cart: FC = () => {
   const cartItems = useAppSelector(cartItemsState);
@@ -22,6 +23,7 @@ const Cart: FC = () => {
   const clearCartHandler = () => {
     dispatch(clearCart());
     history.replace("/shop");
+    successToast("All items successfully removed from cart!");
   };
 
   const removeItemHandler = (id: string) => {

@@ -10,6 +10,7 @@ import WishlistToggler from "../pages/wishlist/WishlistToggler";
 import { wishlistItemsState } from "../../store/features/wishlistSlice";
 import Alert from "../../UI/Alert";
 import { Link } from "react-router-dom";
+import { successToast } from "../../UI/Toasts";
 
 const ProductItem: FC<{ product: Product }> = ({ product }) => {
   const [quantity, setQuantity] = useState<number>(product.quantity);
@@ -38,6 +39,7 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
         quantity,
       })
     );
+    successToast("Item successfully added to cart!");
   }, []);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const ProductItem: FC<{ product: Product }> = ({ product }) => {
   }, [wishlistItems, wishlistState]);
 
   return (
-    <li className="m-2 hover-trigger">
+    <li className="hover-trigger">
       <Card>
         <div className="relative hover-target">
           <img

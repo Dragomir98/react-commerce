@@ -7,7 +7,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
   ) => void;
 }
 
-const DeliveryType: FC<Props> = ({ selectedOption, onSelectChange }) => {
+const PaymentMethod: FC<Props> = ({ selectedOption, onSelectChange }) => {
   const deliveryOptions = ["Cash on Delivery"];
 
   return (
@@ -32,4 +32,4 @@ const DeliveryType: FC<Props> = ({ selectedOption, onSelectChange }) => {
   );
 };
 
-export default DeliveryType;
+export default PaymentMethod;

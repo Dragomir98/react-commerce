@@ -37,7 +37,11 @@ const initialState: ProductsState = {
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setProducts: (state, action) => {
+      state.items = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
       state.loading = true;
@@ -55,5 +59,7 @@ export const productsSlice = createSlice({
 });
 
 export const existingProducts = (state: RootState) => state.products.items;
+
+export const { setProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

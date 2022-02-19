@@ -1,15 +1,17 @@
 import { collection, doc, setDoc } from "@firebase/firestore";
 import { ChangeEvent, FC, FormEvent, useReducer, useState } from "react";
+import { useHistory } from "react-router";
 import firestoreDb from "../../../firebase";
-import { useAppSelector } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Buyer from "../../../models/Buyer";
 import Order from "../../../models/Order";
 import { currentUserSelector } from "../../../store/features/auth/authSelectors";
-import { cartItemsState } from "../../../store/features/cartSlice";
+import { cartItemsState, clearCart } from "../../../store/features/cartSlice";
 import Button from "../../../UI/Button";
 import Loader from "../../../UI/Loader";
+import { errorToast, successToast } from "../../../UI/Toasts";
 import Cart from "../../minicart/Cart";
-import DeliveryType from "./DeliveryType";
+import DeliveryType from "./PaymentMethod";
 import { BuyerPayload, buyerReducer } from "./reducer/buyerReducer";
 import UserForm from "./UserForm";
 
@@ -20,6 +22,8 @@ const FinishOrder: FC = () => {
   const cartItems = useAppSelector(cartItemsState);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false);
+  const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const buyerInitialState: Buyer = {
     email: currentUser.email,
@@ -78,22 +82,27 @@ const FinishOrder: FC = () => {
 
     try {
       setIsSubmittingOrder(true);
-      await setDoc(ordersCollection, orderDetails);
+      await setDoc(ordersCollection, orderDetails).then(() => {
+        console.log("success!");
+        dispatch(clearCart());
+        history.replace("/");
+      });
+      successToast("Your order has successfully been sent for confirmation!");
     } catch (err) {
       console.log(`Error: ${err}`);
+      errorToast("An error occured while confirming your order!");
     }
     setIsSubmittingOrder(false);
   };
 
   return (
     <section className="h-full flex flex-col">
-      {isSubmittingOrder && <Loader />}
-      <h1 className="text-center font-semibold text-3xl mt-10 text-text-light dark:text-text-dark">
+      <h1 className="text-center font-semibold text-3xl my-5 text-text-light dark:text-text-dark">
         Order completion
       </h1>
-      <div className="flex justify-center items-center md:flex-row m-auto">
+      <div className="flex justify-center items-center flex-col md:flex-row m-auto w-full md:w-auto">
         <UserForm
-          className="flex-grow"
+          className="flex-grow mb-10 lg:md-auto"
           buyerState={buyerState}
           onBuyerDispatch={changeBuyerInfoHandler}
         />
@@ -106,7 +115,11 @@ const FinishOrder: FC = () => {
             />
           </div>
           <div className="text-center mt-5">
-            <Button onClick={orderSubmitHandler}>Finish Order</Button>
+            {isSubmittingOrder ? (
+              <Loader />
+            ) : (
+              <Button onClick={orderSubmitHandler}>Finish Order</Button>
+            )}
           </div>
         </div>
       </div>

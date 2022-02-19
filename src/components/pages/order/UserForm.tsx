@@ -20,7 +20,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="First name"
           type="text"
-          containerClasses="md:mr-2"
+          containerClasses="mr-2"
           defaultValue={currentUser?.firstName}
           required
           onChange={(e) =>
@@ -36,7 +36,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="Last name"
           type="text"
-          containerClasses="md:ml-2"
+          containerClasses="ml-2"
           defaultValue={currentUser?.lastName}
           required
           onChange={(e) =>
@@ -54,7 +54,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="Email"
           type="email"
-          containerClasses="md:mr-2"
+          containerClasses="mr-2"
           defaultValue={currentUser?.email}
           required
           onChange={(e) =>
@@ -70,7 +70,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="Phone Number"
           type="tel"
-          containerClasses="md:ml-2"
+          containerClasses="ml-2"
           max={999999999}
           defaultValue={currentUser?.phoneNumber}
           required
@@ -100,7 +100,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="City"
           type="text"
-          containerClasses="md:mr-2"
+          containerClasses="mr-2"
           required
           onChange={(e) =>
             onBuyerDispatch({
@@ -112,7 +112,7 @@ const UserForm: FC<Props> = ({ buyerState, onBuyerDispatch, ...rest }) => {
         <Input
           label="Post Code"
           type="number"
-          containerClasses="md:ml-2"
+          containerClasses="ml-2"
           max={9999}
           required
           onChange={(e) =>

@@ -9,6 +9,7 @@ import { wishlistItemsState } from "../../../store/features/wishlistSlice";
 import Alert from "../../../UI/Alert";
 import Button from "../../../UI/Button";
 import Loader from "../../../UI/Loader";
+import { successToast } from "../../../UI/Toasts";
 import WishlistToggler from "../../pages/wishlist/WishlistToggler";
 import ProductForm from "../ProductForm";
 
@@ -64,6 +65,7 @@ const ProductDetails: FC = () => {
         })
       );
     }
+    successToast("Item successfully added to cart!");
   };
 
   useEffect(() => {

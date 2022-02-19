@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import CartPage from "./components/pages/cart/Cart";
@@ -6,13 +6,16 @@ import HomePage from "./components/pages/home/Home";
 import ShopPage from "./components/pages/shop/Shop";
 import wishlistPage from "./components/pages/wishlist/Wishlist";
 import Layout from "./layout/Layout";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { observeCurrentUser } from "./store/features/auth/authSlice";
 import firestoreDb, { auth } from "./firebase";
 import Account from "./components/pages/auth/user/Account";
-import { authStateSelector } from "./store/features/auth/authSelectors";
+import {
+  authLoadingStateSelector,
+  authStateSelector,
+} from "./store/features/auth/authSelectors";
 import { logoutUser } from "./store/features/auth/authReducers";
 import ProtectedRoute from "./UI/ProtectedRoute";
 import ForgotPassword from "./components/pages/auth/ForgotPassword";
@@ -22,20 +25,32 @@ import EditProductForm from "./components/pages/auth/user/admin/EditProductForm"
 import ProductDetails from "./components/products/product-item/ProductDetails";
 import FinishOrder from "./components/pages/order/FinishOrder";
 import { doc, getDoc } from "@firebase/firestore";
+import Loader from "./UI/Loader";
+import { cartItemsState } from "./store/features/cartSlice";
 
 function App() {
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(authStateSelector);
+  const loadingState = useAppSelector(authLoadingStateSelector);
+  const cartItems = useAppSelector(cartItemsState);
+  const [isLoading, setIsLoading] = useState(false);
 
   //observe auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && !isAuthenticated) {
-        const usersCollectionRef = doc(firestoreDb, "users", user.uid);
-        const currentUser = await getDoc(usersCollectionRef);
-        dispatch(observeCurrentUser(currentUser.data()));
-      } else if (!user && !isAuthenticated) {
-        dispatch(logoutUser());
+      try {
+        setIsLoading(true);
+
+        if (user && !isAuthenticated) {
+          const usersCollectionRef = doc(firestoreDb, "users", user.uid);
+          const currentUser = await getDoc(usersCollectionRef);
+          dispatch(observeCurrentUser(currentUser.data()));
+        } else if (!user && !isAuthenticated) {
+          dispatch(logoutUser());
+        }
+        setIsLoading(false);
+      } catch (err) {
+        console.log(`Error: ${err}`);
       }
     });
     return () => unsubscribe();
@@ -68,7 +83,11 @@ function App() {
           path="/edit-product"
           component={EditProductForm}
         />
-        <Route exact path="/finish-order" component={FinishOrder} />
+        {cartItems.length ? (
+          <Route exact path="/finish-order" component={FinishOrder} />
+        ) : (
+          <Redirect to="/shop" />
+        )}
       </Switch>
     </Layout>
   );
